@@ -12,7 +12,7 @@ namespace API.Extensions
 {
     public static class ApplicationServicesExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services,IConfiguration config) 
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             // Add services to the container.
 
@@ -47,6 +47,14 @@ namespace API.Extensions
                         };
                         return new BadRequestObjectResult(errorResponse);
                     };
+            });
+
+            services.AddCors(option =>
+            {
+                option.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                });
             });
 
             return services;
