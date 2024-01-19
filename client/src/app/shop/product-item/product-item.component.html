@@ -1,0 +1,21 @@
+<div class="card shadow-sm" *ngIf="product">
+
+  <img src="{{product.pictureUrl}}" alt="{{product.name}}">
+
+  <div class="card-body d-flex flex-column">
+    <a href="" class="text-decoration-none">
+      <h6 class="text-uppercase">
+        {{product.name}}
+      </h6>
+    </a>
+    <span class="mb-2">{{product.price| currency}} </span>
+
+    <div class="btn-group mt-auto">
+      <button class="btn btn-outline-secondary">
+        <fa-icon [icon]="faCartShopping"></fa-icon>
+        <i class="fa-solid fa-cart-shopping"></i>
+      </button>
+      <button class="btn btn-outline-secondary">View</button>
+    </div>
+  </div>
+</div>
