@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CoreModule } from './core/core.module';
 import { ShopModule } from './shop/shop.module';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { HomeModule } from './home/home.module';
 
 
 @NgModule({
@@ -23,7 +23,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     HttpClientModule,
     CoreModule,
     ShopModule,
-    PaginationModule.forRoot()
+    HomeModule,
+
 
   ],
   providers: [],
