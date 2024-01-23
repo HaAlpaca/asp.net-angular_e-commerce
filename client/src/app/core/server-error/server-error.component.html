@@ -1,0 +1,12 @@
+<div class="container mt-5">
+  <h4>500: Internal Sever Error</h4>
+  <ng-container *ngIf="error">
+    <h5 class="text-danger">Error: {{error.message}}</h5>
+    <p class="font-weight-bold">
+      This error comes from server
+    </p>
+    <h5>
+      <code class="mt-5" style="background:whitesmoke;">{{error.details}}</code>
+    </h5>
+  </ng-container>
+</div>
