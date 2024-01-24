@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="types.length > 0 && brands.length > 0">
     <section class="col-3">
       <h5 class="text-warning ms-3">Sort</h5>
       <select class="form-select mb-4" (change)="onSortSelected($event)">
@@ -33,7 +33,7 @@
 
         <div class="d-flex mt-2">
           <input (keyup.enter)="onSearch()" type="text" placeholder="Search" class="form-control me-2" #search>
-          <button (click)="onSearch()" class="btn btn-outline-primary mx-2">Search</button>
+          <button (click)="onSearch()" class="btn btn-primary mx-2">Search</button>
           <button (click)="onReset()" class="btn btn-outline-success mx-2">Reset</button>
         </div>
       </div>
