@@ -3,7 +3,7 @@
   <div class="image position-relative" style="cursor: pointer;">
     <img src="{{product.pictureUrl}}" alt="{{product.name}}" class="img-fluid bg-info">
     <div class="d-flex justify-content-center align-items-center hover-overlay">
-      <button class="btn btn-primary me-2">
+      <button (click)="addItemToBasket()" class="btn btn-primary me-2">
         <fa-icon [icon]="faCartShopping"></fa-icon>
         <i class="fa-solid fa-cart-shopping"></i>
       </button>

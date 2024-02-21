@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { BasketService } from './basket/basket.service';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,10 @@ export class AppComponent implements OnInit {
   title = 'E-Shopping';
   products: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private basketService: BasketService) {}
 
   ngOnInit(): void {
+    const basketId = localStorage.getItem('basket_Id');
+    if (basketId) this.basketService.getBasket(basketId);
   }
 }
