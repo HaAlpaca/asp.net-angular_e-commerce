@@ -46,10 +46,10 @@ var logger = services.GetRequiredService<ILogger<Program>>();
 try
 {
     await context.Database.MigrateAsync();
-    await StoreContextSeed.SeedAsync(context);
     await identityContext.Database.MigrateAsync();
-    await AddIdentityDbContextSeed.SeedUserAsync(userManager);
-    
+    await StoreContextSeed.SeedAsync(context);
+    await AddIdentityDbContextSeed.SeedUsersAsync(userManager);
+    Console.WriteLine(userManager.Users.Any());
 }
 catch (Exception e)
 {
