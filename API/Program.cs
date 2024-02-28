@@ -15,16 +15,15 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddSwaggerDocumentation();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddeware>();
 
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
-//swagger
-app.UseSwagger();
-app.UseSwaggerUI();
 
+app.UseSwaggerDocumentation();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
