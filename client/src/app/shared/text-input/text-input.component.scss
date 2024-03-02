@@ -1,0 +1,16 @@
+.loader {
+  position: absolute;
+  width: 20px;
+  top: 20px;
+  right: 40px;
+  margin-top: 0;
+  animation: spin 1s;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
