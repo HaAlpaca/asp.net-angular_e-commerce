@@ -11,7 +11,7 @@ namespace Core.Entities.Order
         {
         }
 
-        public Order(string buyerEmail, Address shipToAddress, decimal subTotal, IReadOnlyList<OrderItem> OrderItems, DeliveryMethod DeliveryMethod)
+        public Order(IReadOnlyList<OrderItem> OrderItems, string buyerEmail, Address shipToAddress,DeliveryMethod DeliveryMethod, decimal subTotal)
         {
             this.BuyerEmail = buyerEmail;
             this.ShipToAddress = shipToAddress;

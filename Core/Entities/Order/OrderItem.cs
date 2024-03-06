@@ -11,7 +11,7 @@ namespace Core.Entities.Order
         {
         }
 
-        public OrderItem(ProductItemOrdered itemOrdered, int quantity, decimal price)
+        public OrderItem(ProductItemOrdered itemOrdered,decimal price,int quantity)
         {
             this.ItemOrdered = itemOrdered;
             this.Quantity = quantity;
