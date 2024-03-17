@@ -11,7 +11,7 @@ namespace Core.Entities.Order
         {
         }
 
-        public ProductItemOrdered(int productItemId, string pictureUrl, string ProductName)
+        public ProductItemOrdered(int productItemId, string ProductName, string pictureUrl)
         {
             this.ProductItemId = productItemId;
             this.ProductName = ProductName;
