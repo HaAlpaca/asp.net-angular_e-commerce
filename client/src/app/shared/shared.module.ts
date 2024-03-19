@@ -10,6 +10,10 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TextInputComponent } from './text-input/text-input.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { StepperComponent } from './components/stepper/stepper.component';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { BasketSummaryComponent } from './basket-summary/basket-summary.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     OrderTotalsComponent,
     HomeCarouselComponent,
     TextInputComponent,
+    StepperComponent,
+    BasketSummaryComponent,
   ],
   imports: [
     FontAwesomeModule,
@@ -26,6 +32,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     CarouselModule,
     BsDropdownModule.forRoot(),
+    CdkStepperModule,
+    RouterModule,
   ],
   exports: [
     PaginationModule,
@@ -35,7 +43,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReactiveFormsModule,
     HomeCarouselComponent,
     BsDropdownModule,
-    TextInputComponent
+    TextInputComponent,
+    StepperComponent,
+    CdkStepperModule,
+    BasketSummaryComponent,
   ],
 })
 export class SharedModule {}

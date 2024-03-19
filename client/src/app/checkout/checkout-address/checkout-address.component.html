@@ -1,0 +1,34 @@
+<div class="mt-4" *ngIf="checkoutForm" [formGroup]="checkoutForm">
+  <div class="d-flex justify-content-between align-items-center">
+    <h4>Shipping address</h4>
+    <button class="btn btn-outline-success mb-3">
+      Save as default address
+    </button>
+  </div>
+  <div class="row" formGroupName="addressForm">
+    <div class="form-group col-6">
+      <app-text-input [label]="'First Name'" formControlName="firstName"></app-text-input>
+    </div>
+    <div class="form-group col-6">
+      <app-text-input [label]="'Last Name'" formControlName="lastName"></app-text-input>
+    </div>
+    <div class="form-group col-6">
+      <app-text-input [label]="'Street'" formControlName="street"></app-text-input>
+    </div>
+    <div class="form-group col-6">
+      <app-text-input [label]="'City'" formControlName="city"></app-text-input>
+    </div>
+    <div class="form-group col-6">
+      <app-text-input [label]="'Zipcode'" formControlName="zipcode"></app-text-input>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-between flex-row mb-5">
+  <button class="btn btn-outline-primary" routerLink="/basket">
+    <fa-icon [icon]="angleLeft"></fa-icon> Back to basket
+  </button>
+  <button class="btn btn-outline-primary" cdkStepperNext>
+    Go to delivery <fa-icon [icon]="angleRight"></fa-icon>
+  </button>
+</div>

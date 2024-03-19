@@ -1,0 +1,14 @@
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+
+@Component({
+  selector: 'app-checkout-address',
+  templateUrl: './checkout-address.component.html',
+  styleUrls: ['./checkout-address.component.scss'],
+})
+export class CheckoutAddressComponent {
+  angleLeft = faAngleLeft;
+  angleRight = faAngleRight;
+  @Input() checkoutForm?: FormGroup;
+}
