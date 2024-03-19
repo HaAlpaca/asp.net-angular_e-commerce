@@ -24,7 +24,7 @@ namespace Infrastructure.Identity
                         LastName = "Admin",
                         Street = "10 Vo Nguyen Giap",
                         City = "Ha Noi",
-                        ZipCode = "00000"
+                        Zipcode = "00000"
                     }
                 };
                 await userManager.CreateAsync(user, "Pa$$w0rd");

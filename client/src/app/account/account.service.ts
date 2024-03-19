@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../shared/models/user';
+import { Address, User } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -17,20 +17,19 @@ export class AccountService {
   loadCurrentUser(token: string | null) {
     if (token === null) {
       this.currentUserSource.next(null);
-      return of(null)
+      return of(null);
     }
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
-    return this.http.get<User>(this.baseUrl + 'account', {headers}).pipe(
+    return this.http.get<User>(this.baseUrl + 'account', { headers }).pipe(
       map((user) => {
-        if(user) {
+        if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
           return user;
         } else {
-          return null
+          return null;
         }
-
       })
     );
   }
@@ -63,5 +62,15 @@ export class AccountService {
     return this.http.get<boolean>(
       this.baseUrl + 'account/emailExists?email=' + email
     );
+  }
+
+  // get
+
+  getUserAddress() {
+    return this.http.get<Address>(this.baseUrl + 'account/address');
+  }
+
+  updateUserAddress(address: Address) {
+    return this.http.put(this.baseUrl + 'account/address', address);
   }
 }

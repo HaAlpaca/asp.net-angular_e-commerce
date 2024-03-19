@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { CheckoutModule } from './checkout.module';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { CheckoutSuccessComponent } from './checkout-success/checkout-success.component';
 
-const routes: Routes = [{ path: '', component: CheckoutComponent }];
+const routes: Routes = [
+  { path: '', component: CheckoutComponent },
+  { path: 'success', component: CheckoutSuccessComponent },
+];
 
 @NgModule({
   declarations: [],

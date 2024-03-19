@@ -16,13 +16,13 @@ namespace Core.Entities.Order
             this.FirstName = firstName;
             this.LastName = LastName;
             this.Street = street;
-            this.ZipCode = zipCode;
+            this.Zipcode = zipCode;
             this.City = City;
         }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
-        public string ZipCode { get; set; }
+        public string Zipcode { get; set; }
     }
 }

@@ -17,6 +17,6 @@ namespace API.Dtos
         [Required]
         public String City { get; set; }
         [Required]
-        public String ZipCode { get; set; }
+        public String Zipcode { get; set; }
     }
 }

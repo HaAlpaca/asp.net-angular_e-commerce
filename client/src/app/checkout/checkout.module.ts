@@ -8,9 +8,10 @@ import { CheckoutDeliveryComponent } from './checkout-delivery/checkout-delivery
 import { CheckoutReviewComponent } from './checkout-review/checkout-review.component';
 import { CheckoutPaymentComponent } from './checkout-payment/checkout-payment.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CheckoutSuccessComponent } from './checkout-success/checkout-success.component';
 
 @NgModule({
-  declarations: [CheckoutComponent, CheckoutAddressComponent, CheckoutDeliveryComponent, CheckoutReviewComponent, CheckoutPaymentComponent],
+  declarations: [CheckoutComponent, CheckoutAddressComponent, CheckoutDeliveryComponent, CheckoutReviewComponent, CheckoutPaymentComponent, CheckoutSuccessComponent],
   imports: [CommonModule, CheckoutRoutingModule,SharedModule,FontAwesomeModule],
 })
 export class CheckoutModule {}
