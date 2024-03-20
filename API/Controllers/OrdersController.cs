@@ -29,8 +29,9 @@ namespace API.Controllers
         public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto)
         {
             var email = HttpContext.User.RetrieveEmailFromPrinciple();
+            var phone = HttpContext.User.RetrievePhoneNumberFromPrinciple();
             var address = _mapper.Map<AddressDto, Address>(orderDto.ShipToAddress);
-            var order = await _orderService.CreateOrderAsync(email, orderDto.DeliveryMethodId, orderDto.BasketId, address);
+            var order = await _orderService.CreateOrderAsync(email, phone, orderDto.DeliveryMethodId, orderDto.BasketId, address);
             if (order == null) return BadRequest(new ApiResponse(400, "Problem while creating order"));
             return Ok(order);
         }

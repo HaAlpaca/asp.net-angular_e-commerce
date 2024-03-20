@@ -104,13 +104,15 @@ namespace API.Controllers
             {
                 DisplayName = registerDto.DisplayName,
                 Email = registerDto.Email,
-                UserName = registerDto.Email
+                UserName = registerDto.Email,
+                PhoneNumber = registerDto.PhoneNumber
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             if (!result.Succeeded) return Unauthorized(new ApiResponse(400));
             return new UserDto
             {
                 Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
                 Token = _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };

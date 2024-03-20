@@ -21,7 +21,7 @@ namespace Infrastructure.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public async Task<Order> CreateOrderAsync(string buyerEmail, int DeliveryMethodId, string basketId, Address shippingAddress)
+        public async Task<Order> CreateOrderAsync(string buyerEmail,string buyerPhone, int DeliveryMethodId, string basketId, Address shippingAddress)
         {
             // get email
             // get basket
@@ -40,7 +40,7 @@ namespace Infrastructure.Services
             var DeliveryMethod = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync(DeliveryMethodId);
             var subTotal = items.Sum(x => x.Price * x.Quantity);
             // calc total
-            var order = new Order(items, buyerEmail, shippingAddress, DeliveryMethod, subTotal);
+            var order = new Order(items, buyerEmail, buyerPhone, shippingAddress, DeliveryMethod, subTotal);
             _unitOfWork.Repository<Order>().Add(order);
             // save to db
             var result = await _unitOfWork.Complete();

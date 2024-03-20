@@ -13,6 +13,10 @@ namespace API.Dtos
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [Phone]
+        public string PhoneNumber {get;set;}
         [RegularExpression("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$",ErrorMessage = "Password must be at least 8 characters,must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number,can contain special characters !!!")]
         public string Password { get; set; }
     }

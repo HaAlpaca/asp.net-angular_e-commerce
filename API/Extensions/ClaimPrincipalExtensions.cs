@@ -11,7 +11,11 @@ namespace API.Extensions
         public static string RetrieveEmailFromPrinciple(this ClaimsPrincipal user)
         {
             return user?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
-            
+
+        }
+        public static string RetrievePhoneNumberFromPrinciple(this ClaimsPrincipal user)
+        {
+            return user?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.OtherPhone)?.Value;
         }
     }
 }

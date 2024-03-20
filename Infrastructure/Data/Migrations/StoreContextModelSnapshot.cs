@@ -49,6 +49,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("BuyerEmail")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("BuyerPhone")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("DeliveryMethodId")
                         .HasColumnType("INTEGER");
 
@@ -174,6 +177,9 @@ namespace Infrastructure.Data.Migrations
                             b1.Property<string>("City")
                                 .HasColumnType("TEXT");
 
+                            b1.Property<string>("Country")
+                                .HasColumnType("TEXT");
+
                             b1.Property<string>("FirstName")
                                 .HasColumnType("TEXT");
 
@@ -199,7 +205,8 @@ namespace Infrastructure.Data.Migrations
 
                     b.Navigation("DeliveryMethod");
 
-                    b.Navigation("ShipToAddress");
+                    b.Navigation("ShipToAddress")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Entities.Order.OrderItem", b =>

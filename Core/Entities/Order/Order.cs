@@ -11,9 +11,10 @@ namespace Core.Entities.Order
         {
         }
 
-        public Order(IReadOnlyList<OrderItem> OrderItems, string buyerEmail, Address shipToAddress,DeliveryMethod DeliveryMethod, decimal subTotal)
+        public Order(IReadOnlyList<OrderItem> OrderItems, string buyerEmail, string buyerPhone, Address shipToAddress, DeliveryMethod DeliveryMethod, decimal subTotal)
         {
             this.BuyerEmail = buyerEmail;
+            this.BuyerPhone = buyerPhone;
             this.ShipToAddress = shipToAddress;
             this.OrderItems = OrderItems;
             this.DeliveryMethod = DeliveryMethod;
@@ -21,6 +22,7 @@ namespace Core.Entities.Order
 
         }
         public string BuyerEmail { get; set; }
+        public string BuyerPhone { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.UtcNow;
         public Address ShipToAddress { get; set; }
         public DeliveryMethod DeliveryMethod { get; set; }

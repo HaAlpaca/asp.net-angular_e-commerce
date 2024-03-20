@@ -25,7 +25,7 @@ namespace Infrastructure.Identity
                         LastName = "Admin",
                         Street = "10 Vo Nguyen Giap",
                         City = "Ha Noi",
-                        Zipcode = "00000",
+                        ZipCode = "00000",
                         Country = "VietNam"
                     }
                 };

@@ -16,7 +16,7 @@ namespace Core.Entities.Order
             this.FirstName = firstName;
             this.LastName = LastName;
             this.Street = street;
-            this.Zipcode = zipCode;
+            this.ZipCode = zipCode;
             this.City = City;
             this.Country = Country;
         }
@@ -24,7 +24,7 @@ namespace Core.Entities.Order
         public string LastName { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
-        public string Zipcode { get; set; }
+        public string ZipCode { get; set; }
         public string Country { get; set; }
     }
 }

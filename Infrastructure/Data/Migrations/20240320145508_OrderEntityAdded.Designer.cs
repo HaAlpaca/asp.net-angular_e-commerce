@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240306004359_OrderEntityAdded")]
+    [Migration("20240320145508_OrderEntityAdded")]
     partial class OrderEntityAdded
     {
         /// <inheritdoc />
@@ -50,6 +50,9 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("BuyerEmail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BuyerPhone")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("DeliveryMethodId")
@@ -177,6 +180,9 @@ namespace Infrastructure.Data.Migrations
                             b1.Property<string>("City")
                                 .HasColumnType("TEXT");
 
+                            b1.Property<string>("Country")
+                                .HasColumnType("TEXT");
+
                             b1.Property<string>("FirstName")
                                 .HasColumnType("TEXT");
 
@@ -202,7 +208,8 @@ namespace Infrastructure.Data.Migrations
 
                     b.Navigation("DeliveryMethod");
 
-                    b.Navigation("ShipToAddress");
+                    b.Navigation("ShipToAddress")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Entities.Order.OrderItem", b =>
