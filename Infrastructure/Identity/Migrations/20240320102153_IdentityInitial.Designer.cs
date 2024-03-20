@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20240226133807_IdentityInitial")]
+    [Migration("20240320102153_IdentityInitial")]
     partial class IdentityInitial
     {
         /// <inheritdoc />
@@ -33,6 +33,9 @@ namespace Infrastructure.Identity.Migrations
                     b.Property<string>("City")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Country")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
 
@@ -42,7 +45,7 @@ namespace Infrastructure.Identity.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ZipCode")
+                    b.Property<string>("Zipcode")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

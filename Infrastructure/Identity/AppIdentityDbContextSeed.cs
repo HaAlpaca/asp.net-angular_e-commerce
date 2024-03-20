@@ -18,13 +18,15 @@ namespace Infrastructure.Identity
                     DisplayName = "Bob",
                     Email = "bob@test.com",
                     UserName = "bob@test.com",
+                    PhoneNumber ="00001111",
                     Address = new Address
                     {
                         FirstName = "Admin",
                         LastName = "Admin",
                         Street = "10 Vo Nguyen Giap",
                         City = "Ha Noi",
-                        Zipcode = "00000"
+                        Zipcode = "00000",
+                        Country = "VietNam"
                     }
                 };
                 await userManager.CreateAsync(user, "Pa$$w0rd");

@@ -43,6 +43,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
                 Token = _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
@@ -81,9 +82,10 @@ namespace API.Controllers
             if (!result.Succeeded) return Unauthorized(new ApiResponse(401));
             return new UserDto
             {
+                DisplayName = user.DisplayName,
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user),
-                DisplayName = user.DisplayName
+                PhoneNumber = user.PhoneNumber,
+                Token = _tokenService.CreateToken(user)
             };
         }
         [HttpPost("register")]

@@ -11,18 +11,20 @@ namespace Core.Entities.Order
         {
         }
 
-        public Address(String firstName, string LastName, string City, string street, string zipCode)
+        public Address(String firstName, string LastName, string City, string street, string zipCode,string Country)
         {
             this.FirstName = firstName;
             this.LastName = LastName;
             this.Street = street;
             this.Zipcode = zipCode;
             this.City = City;
+            this.Country = Country;
         }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public string Zipcode { get; set; }
+        public string Country { get; set; }
     }
 }

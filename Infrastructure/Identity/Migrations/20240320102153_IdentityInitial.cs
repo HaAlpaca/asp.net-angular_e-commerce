@@ -82,7 +82,8 @@ namespace Infrastructure.Identity.Migrations
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
                     Street = table.Column<string>(type: "TEXT", nullable: true),
                     City = table.Column<string>(type: "TEXT", nullable: true),
-                    ZipCode = table.Column<string>(type: "TEXT", nullable: true),
+                    Zipcode = table.Column<string>(type: "TEXT", nullable: true),
+                    Country = table.Column<string>(type: "TEXT", nullable: true),
                     AppUserId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

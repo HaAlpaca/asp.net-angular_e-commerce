@@ -14,6 +14,7 @@ namespace Core.Entities.Identity
         public String Street { get; set; }
         public String City { get; set; }
         public String Zipcode { get; set; }
+        public String Country {get;set;}
         [Required]
         public String AppUserId { get; set; }
         public AppUser AppUser { get; set; }
