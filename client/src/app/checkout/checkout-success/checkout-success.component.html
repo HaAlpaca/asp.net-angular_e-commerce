@@ -2,5 +2,8 @@
   <fa-icon [icon]="success" style="color: green;"></fa-icon>
   <h2>Thanks for your order</h2>
   <p class="mb-4">hahahhaha</p>
-  <button class="btn btn-outline-success">View your order</button>
+  <button class="btn btn-outline-success" *ngIf="order"
+    routerLink="/orders/{{order.id}}">View your order</button>
+  <button class="btn btn-outline-success" *ngIf="!order"
+    routerLink="/orders">View orders</button>
 </div>

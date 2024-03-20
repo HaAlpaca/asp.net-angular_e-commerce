@@ -20,7 +20,7 @@ namespace API.Extensions
                 otp.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
 
-            services.AddIdentityCore<AppUser>(otp =>
+            services.AddIdentity<AppUser, IdentityRole>(otp =>
             {
 
             })

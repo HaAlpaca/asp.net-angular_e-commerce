@@ -41,13 +41,14 @@ var services = scope.ServiceProvider;
 var context = services.GetRequiredService<StoreContext>();
 var identityContext = services.GetRequiredService<AppIdentityDbContext>();
 var userManager = services.GetRequiredService<UserManager<AppUser>>();
+var roleManager = services.GetRequiredService <RoleManager<IdentityRole>>();
 var logger = services.GetRequiredService<ILogger<Program>>();
 try
 {
     await context.Database.MigrateAsync();
     await identityContext.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
-    await AddIdentityDbContextSeed.SeedUsersAsync(userManager);
+    await AddIdentityDbContextSeed.SeedUsersAsync(userManager,roleManager);
     Console.WriteLine(userManager.Users.Any());
 }
 catch (Exception e)

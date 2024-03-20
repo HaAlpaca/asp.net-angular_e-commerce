@@ -9,8 +9,12 @@ namespace Infrastructure.Identity
 {
     public class AddIdentityDbContextSeed
     {
-        public static async Task SeedUsersAsync(UserManager<AppUser> userManager)
+        public static async Task SeedUsersAsync(UserManager<AppUser> userManager,RoleManager<IdentityRole> roleManager)
         {
+            if (!await roleManager.RoleExistsAsync(AppUserRoles.Admin))
+                await roleManager.CreateAsync(new IdentityRole(AppUserRoles.Admin));
+            if (!await roleManager.RoleExistsAsync(AppUserRoles.User))
+                await roleManager.CreateAsync(new IdentityRole(AppUserRoles.User));
             if (!userManager.Users.Any())
             {
                 var user = new AppUser
@@ -25,9 +29,11 @@ namespace Infrastructure.Identity
                         Street = "10 Vo Nguyen Giap",
                         City = "Ha Noi",
                         Zipcode = "00000"
-                    }
+                    },
+                    PhoneNumber = "00000011111"
                 };
                 await userManager.CreateAsync(user, "Pa$$w0rd");
+                await userManager.AddToRoleAsync(user, AppUserRoles.User);
             }
         }
     }

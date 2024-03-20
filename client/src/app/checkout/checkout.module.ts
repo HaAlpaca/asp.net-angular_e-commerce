@@ -11,7 +11,19 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CheckoutSuccessComponent } from './checkout-success/checkout-success.component';
 
 @NgModule({
-  declarations: [CheckoutComponent, CheckoutAddressComponent, CheckoutDeliveryComponent, CheckoutReviewComponent, CheckoutPaymentComponent, CheckoutSuccessComponent],
-  imports: [CommonModule, CheckoutRoutingModule,SharedModule,FontAwesomeModule],
+  declarations: [
+    CheckoutComponent,
+    CheckoutAddressComponent,
+    CheckoutDeliveryComponent,
+    CheckoutReviewComponent,
+    CheckoutPaymentComponent,
+    CheckoutSuccessComponent,
+  ],
+  imports: [
+    CommonModule,
+    CheckoutRoutingModule,
+    SharedModule,
+    FontAwesomeModule,
+  ],
 })
 export class CheckoutModule {}
