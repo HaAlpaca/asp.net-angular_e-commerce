@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Core.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -9,8 +10,14 @@ namespace Infrastructure.Identity
 {
     public class AddIdentityDbContextSeed
     {
-        public static async Task SeedUsersAsync(UserManager<AppUser> userManager)
+        public static async Task SeedUsersAsync(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+
+            if (!await roleManager.RoleExistsAsync(AppRole.Manager))
+                await roleManager.CreateAsync(new IdentityRole(AppRole.Manager));
+            if (!await roleManager.RoleExistsAsync(AppRole.Customer))
+                await roleManager.CreateAsync(new IdentityRole(AppRole.Customer));
+                
             if (!userManager.Users.Any())
             {
                 var user = new AppUser
@@ -30,6 +37,7 @@ namespace Infrastructure.Identity
                     }
                 };
                 await userManager.CreateAsync(user, "Pa$$w0rd");
+                await userManager.AddToRoleAsync(user, AppRole.Manager);
             }
         }
     }

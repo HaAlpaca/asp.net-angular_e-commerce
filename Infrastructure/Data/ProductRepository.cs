@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SQLitePCL;
 
 namespace Infrastructure.Data
@@ -18,7 +20,7 @@ namespace Infrastructure.Data
         }
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            
+
             return await _context.Products
                 .Include(p => p.ProductBrand)
                 .Include(p => p.ProductType)
@@ -27,7 +29,7 @@ namespace Infrastructure.Data
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            
+
             return await _context.Products
                 .Include(p => p.ProductBrand)
                 .Include(p => p.ProductType)
@@ -42,5 +44,7 @@ namespace Infrastructure.Data
         {
             return await _context.ProductBrands.ToListAsync();
         }
+
+
     }
 }

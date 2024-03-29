@@ -25,30 +25,33 @@ namespace API.Controllers
         private readonly IGenericRepository<ProductType> _typeRepo;
         private readonly IMapper _mapper;
 
+        private readonly IUnitOfWork _unitOfWork;
         public ProductsController(IGenericRepository<Product> productRepo,
         IGenericRepository<ProductBrand> brandRepo,
         IGenericRepository<ProductType> typeRepo,
-        IMapper mapper)
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
         {
             this._productRepo = productRepo;
             this._brandRepo = brandRepo;
             this._typeRepo = typeRepo;
             this._mapper = mapper;
+            this._unitOfWork = unitOfWork;
         }
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts(
-            [FromQuery]ProductSpecParams productParams)
+            [FromQuery] ProductSpecParams productParams)
         {
             var spec = new ProductWithTypesAndBrandsSpecification(productParams);
             var countSpec = new ProductWithFiltersForCountSpecification(productParams);
             var totalItems = await _productRepo.CountAsync(countSpec);
             var products = await _productRepo.ListAsync(spec);
             var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
-            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize,totalItems,data));
+            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductWithTypesAndBrandsSpecification(id);
@@ -65,6 +68,41 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
         {
             return Ok(await _typeRepo.ListAllAsync());
+        }
+
+
+        // post
+        [HttpPost]
+        public async Task<ActionResult<Product>> AddProduct(Product product)
+        {
+            var check = await _productRepo.AddAsync(product);
+            if (!check) return NotFound(new ApiResponse(404));
+            return product;
+        }
+
+        // put
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Product>> UpdateProduct(int id, Product product)
+        {
+            var productEntity = await _productRepo.GetByIdAsync(id);
+
+            productEntity.Name = product.Name;
+            productEntity.PictureUrl = product.PictureUrl;
+            productEntity.Price = product.Price;
+            productEntity.ProductBrand = product.ProductBrand;
+            productEntity.ProductTypeId = product.ProductTypeId;
+            productEntity.Description = product.Description;
+
+            await _productRepo.UpdateAsync(productEntity);
+            return product;
+        }
+        // delete
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Boolean>> DeleteProduct(int id)
+        {
+            var check = await _productRepo.DeleteAsync(id);
+            if (!check) return false;
+            return true;
         }
     }
 }

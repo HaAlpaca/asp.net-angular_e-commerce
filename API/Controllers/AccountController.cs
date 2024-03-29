@@ -15,9 +15,11 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using StackExchange.Redis;
 
 namespace API.Controllers
 {
+
     public class AccountController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
@@ -33,19 +35,20 @@ namespace API.Controllers
             this._tokenService = tokenService;
             this._mapper = mapper;
         }
-
         [Authorize]
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
             var user = await _userManager.FindUserByClaimPrincipleWithAddress(User);
+            IList<string> roles = await _userManager.GetRolesAsync(user);
+            Console.WriteLine(roles);
             return new UserDto
             {
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Token = _tokenService.CreateToken(user),
+                Token = _tokenService.CreateToken(user, roles),
                 DisplayName = user.DisplayName
+
             };
         }
 
@@ -73,10 +76,12 @@ namespace API.Controllers
             return BadRequest("Problem while updating address");
         }
 
+        // login - Register
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            IList<string> roles = await _userManager.GetRolesAsync(user);
             if (user == null) return Unauthorized(new ApiResponse(401));
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if (!result.Succeeded) return Unauthorized(new ApiResponse(401));
@@ -85,7 +90,7 @@ namespace API.Controllers
                 DisplayName = user.DisplayName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user, roles)
             };
         }
         [HttpPost("register")]
@@ -108,12 +113,14 @@ namespace API.Controllers
                 PhoneNumber = registerDto.PhoneNumber
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
+            await _userManager.AddToRoleAsync(user, AppRole.Customer);
+            IList<string> roles = await _userManager.GetRolesAsync(user);
             if (!result.Succeeded) return Unauthorized(new ApiResponse(400));
             return new UserDto
             {
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Token = _tokenService.CreateToken(user),
+                Token = _tokenService.CreateToken(user, roles),
                 DisplayName = user.DisplayName
             };
         }

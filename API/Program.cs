@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
+// builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,7 +30,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
-
+// app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -41,14 +42,15 @@ var services = scope.ServiceProvider;
 var context = services.GetRequiredService<StoreContext>();
 var identityContext = services.GetRequiredService<AppIdentityDbContext>();
 var userManager = services.GetRequiredService<UserManager<AppUser>>();
+var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 var logger = services.GetRequiredService<ILogger<Program>>();
 try
 {
     await context.Database.MigrateAsync();
     await identityContext.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
-    await AddIdentityDbContextSeed.SeedUsersAsync(userManager);
-    Console.WriteLine(userManager.Users.Any());
+    await AddIdentityDbContextSeed.SeedUsersAsync(userManager, roleManager);
+    //Console.WriteLine();
 }
 catch (Exception e)
 {
