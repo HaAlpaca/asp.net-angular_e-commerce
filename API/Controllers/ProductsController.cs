@@ -25,18 +25,15 @@ namespace API.Controllers
         private readonly IGenericRepository<ProductType> _typeRepo;
         private readonly IMapper _mapper;
 
-        private readonly IUnitOfWork _unitOfWork;
         public ProductsController(IGenericRepository<Product> productRepo,
         IGenericRepository<ProductBrand> brandRepo,
         IGenericRepository<ProductType> typeRepo,
-        IMapper mapper,
-        IUnitOfWork unitOfWork)
+        IMapper mapper)
         {
             this._productRepo = productRepo;
             this._brandRepo = brandRepo;
             this._typeRepo = typeRepo;
             this._mapper = mapper;
-            this._unitOfWork = unitOfWork;
         }
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts(
@@ -71,38 +68,48 @@ namespace API.Controllers
         }
 
 
-        // post
+        // post product
+        
         [HttpPost]
-        public async Task<ActionResult<Product>> AddProduct(Product product)
+        public async Task<ActionResult<ProductToReturnDto>> AddProduct(Product product)
         {
             var check = await _productRepo.AddAsync(product);
             if (!check) return NotFound(new ApiResponse(404));
-            return product;
+            var id = product.Id;
+            var spec = new ProductWithTypesAndBrandsSpecification(id);
+            var productToReturn = await _productRepo.GetEntityWithSpec(spec);
+            return _mapper.Map<Product, ProductToReturnDto>(productToReturn);
         }
 
-        // put
+        // put product (update)
         [HttpPut("{id}")]
-        public async Task<ActionResult<Product>> UpdateProduct(int id, Product product)
+        public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id, Product product)
         {
             var productEntity = await _productRepo.GetByIdAsync(id);
+            if(productEntity==null) return NotFound(new ApiResponse(404));
 
             productEntity.Name = product.Name;
             productEntity.PictureUrl = product.PictureUrl;
             productEntity.Price = product.Price;
-            productEntity.ProductBrand = product.ProductBrand;
+            productEntity.ProductBrandId = product.ProductBrandId;
             productEntity.ProductTypeId = product.ProductTypeId;
             productEntity.Description = product.Description;
 
-            await _productRepo.UpdateAsync(productEntity);
-            return product;
+            var check = await _productRepo.UpdateAsync(productEntity);
+            if (!check) return BadRequest("Can't Update this product");
+            var spec = new ProductWithTypesAndBrandsSpecification(id);
+            var productToReturn = await _productRepo.GetEntityWithSpec(spec);
+            return _mapper.Map<Product, ProductToReturnDto>(productToReturn);
         }
-        // delete
+        // delete product
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Boolean>> DeleteProduct(int id)
+        public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
-            var check = await _productRepo.DeleteAsync(id);
-            if (!check) return false;
-            return true;
+            var checkProduct = await _productRepo.GetByIdAsync(id);
+            if (checkProduct == null) return BadRequest(new ApiResponse(404));
+            var deleted = await _productRepo.DeleteAsync(id);
+            if (!deleted) return BadRequest("Can't Delete this product");
+            return Ok();
         }
     }
 }

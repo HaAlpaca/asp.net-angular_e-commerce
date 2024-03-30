@@ -24,14 +24,12 @@
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
-            },
-            "console": "externalTerminal"
+            }
         },
         {
             "name": ".NET Core Attach",
             "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
+            "request": "attach"
         }
     ]
 }
