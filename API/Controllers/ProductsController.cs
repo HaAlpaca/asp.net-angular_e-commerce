@@ -84,7 +84,7 @@ namespace API.Controllers
         }
 
         // put product (update)
-        // [Authorize(Roles = AppRole.Manager)]
+        [Authorize(Roles = AppRole.Manager)]
         [HttpPut("{id}")]
         public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id, Product product)
         {
@@ -105,6 +105,7 @@ namespace API.Controllers
             return _mapper.Map<Product, ProductToReturnDto>(productToReturn);
         }
         // delete product
+        [Authorize(Roles = AppRole.Manager)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
@@ -116,7 +117,7 @@ namespace API.Controllers
         }
 
         // Brand and type CUD
-
+        [Authorize(Roles = AppRole.Manager)]
         [HttpPost("brands")]
         public async Task<ActionResult<ProductBrand>> AddBrand(ProductBrand brand)
         {
@@ -125,7 +126,7 @@ namespace API.Controllers
             var id = brand.Id;
             return Ok(await _brandRepo.GetByIdAsync(id));
         }
-
+        [Authorize(Roles = AppRole.Manager)]
         [HttpPut("brands/{id}")]
         public async Task<ActionResult<ProductBrand>> UpdateBrand(int id, ProductBrand brand)
         {
@@ -136,6 +137,7 @@ namespace API.Controllers
             if (!check) return BadRequest("Can't update this brand");
             return Ok(await _brandRepo.GetByIdAsync(id));
         }
+        [Authorize(Roles = AppRole.Manager)]
         [HttpDelete("brands/{id}")]
         public async Task<ActionResult<ProductBrand>> DeleteBrand(int id)
         {
@@ -147,7 +149,7 @@ namespace API.Controllers
         }
 
 
-
+        [Authorize(Roles = AppRole.Manager)]
         [HttpPost("types")]
         public async Task<ActionResult<ProductType>> AddType(ProductType type)
         {
@@ -156,7 +158,7 @@ namespace API.Controllers
             var id = type.Id;
             return Ok(await _typeRepo.GetByIdAsync(id));
         }
-
+        [Authorize(Roles = AppRole.Manager)]
         [HttpPut("types/{id}")]
         public async Task<ActionResult<ProductType>> UpdateType(int id, ProductType type)
         {
@@ -167,6 +169,7 @@ namespace API.Controllers
             if (!check) return BadRequest("Can't update this type");
             return Ok(await _typeRepo.GetByIdAsync(id));
         }
+        [Authorize(Roles = AppRole.Manager)]
         [HttpDelete("types/{id}")]
         public async Task<ActionResult<Type>> DeleteType(int id)
         {
