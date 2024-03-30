@@ -35,7 +35,7 @@ namespace API.Controllers
             this._tokenService = tokenService;
             this._mapper = mapper;
         }
-        [Authorize]
+        
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {

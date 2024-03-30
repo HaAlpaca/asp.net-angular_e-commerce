@@ -14,6 +14,8 @@ using API.Dtos;
 using AutoMapper;
 using API.Errors;
 using API.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Core.Entities.Identity;
 
 namespace API.Controllers
 {
@@ -67,9 +69,9 @@ namespace API.Controllers
             return Ok(await _typeRepo.ListAllAsync());
         }
 
-
+        // Product CUD
         // post product
-        
+        [Authorize(Roles = AppRole.Manager)]
         [HttpPost]
         public async Task<ActionResult<ProductToReturnDto>> AddProduct(Product product)
         {
@@ -82,11 +84,12 @@ namespace API.Controllers
         }
 
         // put product (update)
+        // [Authorize(Roles = AppRole.Manager)]
         [HttpPut("{id}")]
         public async Task<ActionResult<ProductToReturnDto>> UpdateProduct(int id, Product product)
         {
             var productEntity = await _productRepo.GetByIdAsync(id);
-            if(productEntity==null) return NotFound(new ApiResponse(404));
+            if (productEntity == null) return NotFound(new ApiResponse(404));
 
             productEntity.Name = product.Name;
             productEntity.PictureUrl = product.PictureUrl;
@@ -109,7 +112,69 @@ namespace API.Controllers
             if (checkProduct == null) return BadRequest(new ApiResponse(404));
             var deleted = await _productRepo.DeleteAsync(id);
             if (!deleted) return BadRequest("Can't Delete this product");
-            return Ok();
+            return Ok("Product deleted");
+        }
+
+        // Brand and type CUD
+
+        [HttpPost("brands")]
+        public async Task<ActionResult<ProductBrand>> AddBrand(ProductBrand brand)
+        {
+            var check = await _brandRepo.AddAsync(brand);
+            if (!check) return NotFound(new ApiResponse(404));
+            var id = brand.Id;
+            return Ok(await _brandRepo.GetByIdAsync(id));
+        }
+
+        [HttpPut("brands/{id}")]
+        public async Task<ActionResult<ProductBrand>> UpdateBrand(int id, ProductBrand brand)
+        {
+            var brandEntity = await _brandRepo.GetByIdAsync(id);
+            if (brandEntity == null) return NotFound(new ApiResponse(404));
+            brandEntity.Name = brand.Name;
+            var check = await _brandRepo.UpdateAsync(brandEntity);
+            if (!check) return BadRequest("Can't update this brand");
+            return Ok(await _brandRepo.GetByIdAsync(id));
+        }
+        [HttpDelete("brands/{id}")]
+        public async Task<ActionResult<ProductBrand>> DeleteBrand(int id)
+        {
+            var checkBrand = await _brandRepo.GetByIdAsync(id);
+            if (checkBrand == null) return BadRequest(new ApiResponse(404));
+            var deleted = await _brandRepo.DeleteAsync(id);
+            if (!deleted) return BadRequest("Can't delete this brand");
+            return Ok("Brand deleted");
+        }
+
+
+
+        [HttpPost("types")]
+        public async Task<ActionResult<ProductType>> AddType(ProductType type)
+        {
+            var check = await _typeRepo.AddAsync(type);
+            if (!check) return NotFound(new ApiResponse(404));
+            var id = type.Id;
+            return Ok(await _typeRepo.GetByIdAsync(id));
+        }
+
+        [HttpPut("types/{id}")]
+        public async Task<ActionResult<ProductType>> UpdateType(int id, ProductType type)
+        {
+            var typeEntity = await _typeRepo.GetByIdAsync(id);
+            if (typeEntity == null) return NotFound(new ApiResponse(404));
+            typeEntity.Name = type.Name;
+            var check = await _typeRepo.UpdateAsync(typeEntity);
+            if (!check) return BadRequest("Can't update this type");
+            return Ok(await _typeRepo.GetByIdAsync(id));
+        }
+        [HttpDelete("types/{id}")]
+        public async Task<ActionResult<Type>> DeleteType(int id)
+        {
+            var checktype = await _typeRepo.GetByIdAsync(id);
+            if (checktype == null) return BadRequest(new ApiResponse(404));
+            var deleted = await _typeRepo.DeleteAsync(id);
+            if (!deleted) return BadRequest("Can't delete this type");
+            return Ok("type deleted");
         }
     }
 }
