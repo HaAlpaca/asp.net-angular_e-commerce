@@ -22,6 +22,10 @@
 
 
     <ng-container *ngIf="accountService.currentUser$ | async as user" class="d-flex align-items-center">
+      <button class="btn btn-danger" routerLink="/admin">
+        <strong>Manager Shop <fa-icon [icon]="faSetting"></fa-icon></strong>
+
+      </button>
       <div class="btn-group ms-3 me-5" style="cursor: pointer;" dropdown>
         <button id="button-animated" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
           aria-controls="dropdown-animated">

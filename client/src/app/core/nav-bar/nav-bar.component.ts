@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faGear, faSliders } from '@fortawesome/free-solid-svg-icons';
 import { AccountService } from 'src/app/account/account.service';
 import { BasketService } from 'src/app/basket/basket.service';
 import { BasketItem } from 'src/app/shared/models/basket';
@@ -12,7 +12,7 @@ import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons';
 export class NavBarComponent {
   faCartShopping = faCartShopping;
   faCartArrowDown = faCartArrowDown;
-
+  faSetting = faSliders;
   constructor(
     public basketService: BasketService,
     public accountService: AccountService

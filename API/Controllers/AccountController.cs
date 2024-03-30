@@ -35,12 +35,12 @@ namespace API.Controllers
             this._tokenService = tokenService;
             this._mapper = mapper;
         }
-        
+
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
             var user = await _userManager.FindUserByClaimPrincipleWithAddress(User);
-            IList<string> roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
             Console.WriteLine(roles);
             return new UserDto
             {
@@ -48,7 +48,6 @@ namespace API.Controllers
                 PhoneNumber = user.PhoneNumber,
                 Token = _tokenService.CreateToken(user, roles),
                 DisplayName = user.DisplayName
-
             };
         }
 
