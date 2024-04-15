@@ -1,10 +1,46 @@
-<p>checkout-payment works!</p>
+<div class="mt-4" *ngIf="checkoutForm" [formGroup]="checkoutForm">
+  <div class="row">
+    <div class="form-group col-12" formGroupName="paymentForm">
+      <app-text-input [label]="'Name on Card'" formControlName="nameOnCard"></app-text-input>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6">
+      <div class="form-floating">
+        <div class="form-control" #cardNumber>
+        </div>
+        <label>Card Number</label>
+        <span class="text-danger">{{cardErr}}</span>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <div class="form-floating">
+        <div class="form-control" #cardExpiry>
+        </div>
+        <label>Card Expiry</label>
+        <!-- <span class="text-danger">{{cardErr}}</span> -->
+      </div>
+    </div>
+
+    <div class="col-3">
+      <div class="form-floating">
+        <div class="form-control" #cardCvc>
+        </div>
+        <label>Card CVC</label>
+        <!-- <span class="text-danger">{{cardErr}}</span> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <div class="d-flex justify-content-between flex-row mb-5">
   <button class="btn btn-outline-primary" cdkStepperPrevious>
     <fa-icon [icon]="angleLeft"></fa-icon> Back to Review
   </button>
-  <button class="btn btn-outline-primary" (click)="submitOrder()">
-    Submit <fa-icon [icon]="faMoney"></fa-icon>
+  <button [disabled]="loading || !paymentFormComplete" class="btn btn-outline-primary" (click)="submitOrder()">
+    Submit <fa-icon [icon]="faMoney"></fa-icon> <fa-icon *ngIf="loading" [icon]="Spinner"></fa-icon>
   </button>
 </div>

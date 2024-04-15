@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Address, User } from '../shared/models/user';
+import { Address, AuthRole, User } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<User | null>(1);
+
   currentUser$ = this.currentUserSource.asObservable();
+  private currentUserRole = new ReplaySubject<AuthRole | null>(1);
+  currentRole$ = this.currentUserRole.asObservable();
   constructor(private http: HttpClient, private router: Router) {}
 
   loadCurrentUser(token: string | null) {
@@ -38,6 +41,7 @@ export class AccountService {
       map((user) => {
         localStorage.setItem('token', user.token);
         this.currentUserSource.next(user);
+        // this.currentUserRole.next()
       })
     );
   }
@@ -55,6 +59,7 @@ export class AccountService {
   logout() {
     localStorage.removeItem('token');
     this.currentUserSource.next(null);
+    this.currentUserRole.next(null);
     this.router.navigateByUrl('/');
   }
 
@@ -72,5 +77,14 @@ export class AccountService {
 
   updateUserAddress(address: Address) {
     return this.http.put(this.baseUrl + 'account/address', address);
+  }
+
+  getRoleFromToken(token: string | null) {
+    if (token == null) return null;
+    const jwtHelper = new JwtHelperService();
+    const userRole = jwtHelper.decodeToken(token);
+    const roleObject = { role: userRole['role'] };
+    // this.current
+    return roleObject;
   }
 }

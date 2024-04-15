@@ -6,7 +6,7 @@
   <nav class="my-2 text-uppercase fs-5">
     <a class="p-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
     <a class="p-2" routerLink="/shop" routerLinkActive="active">Shop</a>
-    <a class="p-2" routerLink="/contact" routerLinkActive="active">Contact</a>
+    <a class="p-2" routerLink="/about" routerLinkActive="active">About Us</a>
     <a class="p-2" routerLink="/test-error" routerLinkActive="active">Errors</a>
   </nav>
 
@@ -22,10 +22,7 @@
 
 
     <ng-container *ngIf="accountService.currentUser$ | async as user" class="d-flex align-items-center">
-      <button class="btn btn-danger" routerLink="/admin">
-        <strong>Manager Shop <fa-icon [icon]="faSetting"></fa-icon></strong>
 
-      </button>
       <div class="btn-group ms-3 me-5" style="cursor: pointer;" dropdown>
         <button id="button-animated" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
           aria-controls="dropdown-animated">

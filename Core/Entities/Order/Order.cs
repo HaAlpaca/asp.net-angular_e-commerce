@@ -11,7 +11,7 @@ namespace Core.Entities.Order
         {
         }
 
-        public Order(IReadOnlyList<OrderItem> OrderItems, string buyerEmail, string buyerPhone, Address shipToAddress, DeliveryMethod DeliveryMethod, decimal subTotal)
+        public Order(IReadOnlyList<OrderItem> OrderItems, string buyerEmail, string buyerPhone, Address shipToAddress, DeliveryMethod DeliveryMethod, decimal subTotal, string PaymentIntentId)
         {
             this.BuyerEmail = buyerEmail;
             this.BuyerPhone = buyerPhone;
@@ -19,7 +19,7 @@ namespace Core.Entities.Order
             this.OrderItems = OrderItems;
             this.DeliveryMethod = DeliveryMethod;
             this.SubTotal = subTotal;
-
+            this.PaymentIntentId = PaymentIntentId;
         }
         public string BuyerEmail { get; set; }
         public string BuyerPhone { get; set; }

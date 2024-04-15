@@ -41,7 +41,6 @@ namespace API.Controllers
         {
             var user = await _userManager.FindUserByClaimPrincipleWithAddress(User);
             var roles = await _userManager.GetRolesAsync(user);
-            Console.WriteLine(roles);
             return new UserDto
             {
                 Email = user.Email,
@@ -109,7 +108,7 @@ namespace API.Controllers
                 DisplayName = registerDto.DisplayName,
                 Email = registerDto.Email,
                 UserName = registerDto.Email,
-                PhoneNumber = registerDto.PhoneNumber
+                PhoneNumber = registerDto.PhoneNumber,
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             await _userManager.AddToRoleAsync(user, AppRole.Customer);

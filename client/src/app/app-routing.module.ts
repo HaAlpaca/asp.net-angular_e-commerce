@@ -5,9 +5,15 @@ import { TestErrorComponent } from './core/test-error/test-error.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { breadcrumb: 'Home' } },
+  {
+    path: 'about',
+    component: AboutComponent,
+    data: { breadcrumb: 'About Us' },
+  },
   { path: 'test-error', component: TestErrorComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: 'server-error', component: ServerErrorComponent },
@@ -15,10 +21,7 @@ const routes: Routes = [
     path: 'shop',
     loadChildren: () => import('./shop/shop.module').then((m) => m.ShopModule),
   },
-  {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
-  },
+
   {
     path: 'basket',
     loadChildren: () =>
@@ -33,16 +36,15 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () =>
-    import('./account/account.module').then((m) => m.AccountModule),
+      import('./account/account.module').then((m) => m.AccountModule),
   },
   {
     path: 'orders',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./orders/orders.module').then((m) => m.OrdersModule),
-    data: {breadcrumb: 'Orders'}
+    data: { breadcrumb: 'Orders' },
   },
-
 
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

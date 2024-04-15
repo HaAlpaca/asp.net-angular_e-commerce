@@ -1,7 +1,11 @@
 export interface User {
   email: string;
   displayName: string;
+  phone: string;
   token: string;
+}
+export interface AuthRole {
+  role: string;
 }
 export interface Address {
   firstName: string;

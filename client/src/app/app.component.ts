@@ -12,7 +12,7 @@ import { AccountService } from './account/account.service';
 export class AppComponent implements OnInit {
   title = 'E-Shopping';
   products: any[] = [];
-
+  public role: any;
   constructor(
     private http: HttpClient,
     private basketService: BasketService,
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.loadBasket();
     this.loadCurrentUser();
+    this.getCurrentRole();
   }
   loadBasket() {
     const basketId = localStorage.getItem('basket_Id');
@@ -30,5 +31,9 @@ export class AppComponent implements OnInit {
   loadCurrentUser() {
     const token = localStorage.getItem('token');
     this.accountService.loadCurrentUser(token).subscribe();
+  }
+  getCurrentRole() {
+    var token  = localStorage.getItem('token')
+    
   }
 }
