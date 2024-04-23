@@ -5,6 +5,7 @@
   <label for="floatingInput">{{label}}</label>
   <div *ngIf="control.errors?.['required']" class="invalid-feedback">Please enter your {{label}}</div>
   <div *ngIf="control.errors?.['email']" class="invalid-feedback">Invalid email address</div>
+  <div *ngIf="control.errors?.['phonenumber']" class="invalid-feedback">Invalid phone number</div>
   <div *ngIf="control.errors?.['pattern']" class="invalid-feedback">Password not complex enough</div>
   <div *ngIf="control.errors?.['emailExists']" class="invalid-feedback">Email address is taken</div>
 </div>

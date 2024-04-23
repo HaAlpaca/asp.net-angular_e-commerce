@@ -23,7 +23,7 @@ export class RegisterComponent {
 
   errors: string[] | null = null;
   complexPassword = '^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$';
-
+  complexPhone = '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$';
   registerForm = this.fb.group({
     displayName: ['', Validators.required],
     email: [
@@ -34,6 +34,10 @@ export class RegisterComponent {
     password: [
       '',
       [Validators.required, Validators.pattern(this.complexPassword)],
+    ],
+    phonenumber: [
+      '',
+      [Validators.required, Validators.pattern(this.complexPhone)],
     ],
   });
 
@@ -54,8 +58,7 @@ export class RegisterComponent {
             finalize(() => control.markAsTouched())
           );
         })
-      )
-
+      );
     };
   }
 }

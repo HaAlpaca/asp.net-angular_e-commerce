@@ -7,6 +7,8 @@
         <app-text-input [formControl]="registerForm.controls['email']" [label]="'Email Address'"></app-text-input>
         <app-text-input [formControl]="registerForm.controls['password']" [label]="'password'"
           [type]="'password'"></app-text-input>
+        <app-text-input [formControl]="registerForm.controls['phonenumber']" [label]="'phonenumber'"
+          [type]="'phonenumber'"></app-text-input>
 
         <ul class="text-danger list-unstyled" *ngIf="errors !== null">
           <li *ngFor="let error of errors">
