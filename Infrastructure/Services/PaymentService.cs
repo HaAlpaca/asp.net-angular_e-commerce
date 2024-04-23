@@ -41,7 +41,6 @@ namespace Infrastructure.Services
                 {
                     item.Price = productItem.Price;
                 }
-
             }
             var service = new PaymentIntentService();
             PaymentIntent intent;

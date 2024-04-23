@@ -5,12 +5,13 @@ import { Product } from '../shared/models/product';
 import { Brand } from '../shared/models/brand';
 import { Type } from '../shared/models/type';
 import { ShopParams } from '../shared/models/shopParams';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  baseUrl = 'http://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +28,7 @@ export class ShopService {
   getProduct(id: number) {
     return this.http.get<Product>(this.baseUrl + "products/"+ id)
   }
+  
   getBrands() {
     return this.http.get<Brand[]>(this.baseUrl + 'products/brands')
   }

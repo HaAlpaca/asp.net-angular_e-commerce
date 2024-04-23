@@ -28,6 +28,7 @@ export class AboutComponent implements OnInit {
     })
       .setLngLat([105.85, 21.0])
       .addTo(this.map);
+
     new mapboxgl.Marker({
       color: 'red',
       draggable: true,
@@ -52,6 +53,8 @@ export class AboutComponent implements OnInit {
       .setLngLat([105.85, 21.0])
       .setHTML('<small>Ha Noi</small>')
       .addTo(this.map)
+
+
     new mapboxgl.Popup({
       closeButton: true,
       closeOnClick: false,
@@ -83,5 +86,7 @@ export class AboutComponent implements OnInit {
       },
       trackUserLocation: true
     }))
+    
   }
+
 }

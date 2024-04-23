@@ -25,8 +25,6 @@ namespace Infrastructure.Services
 
         public string CreateToken(AppUser user, IList<string> roles)
         {
-
-
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email,user.Email),

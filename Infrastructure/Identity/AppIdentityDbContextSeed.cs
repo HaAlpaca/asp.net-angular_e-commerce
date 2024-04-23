@@ -34,7 +34,7 @@ namespace Infrastructure.Identity
                         City = "Ha Noi",
                         ZipCode = "00000",
                         Country = "VietNam"
-                    }
+                    }, 
                 };
                 await userManager.CreateAsync(user, "Pa$$w0rd");
                 await userManager.AddToRoleAsync(user, AppRole.Manager);

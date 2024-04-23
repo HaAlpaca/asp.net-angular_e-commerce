@@ -11,5 +11,4 @@ namespace Core.Entities.Identity
         public String DisplayName { get; set; }
         public Address Address { get; set; }
     }
-
 }
