@@ -22,11 +22,11 @@ export class AboutComponent implements OnInit {
 
     // add marker
     new mapboxgl.Marker({
-      color: 'red',
+      color: 'pink',
       draggable: true,
       anchor: 'bottom',
     })
-      .setLngLat([105.85, 21.0])
+      .setLngLat([105, 21.0])
       .addTo(this.map);
 
     new mapboxgl.Marker({
@@ -34,7 +34,7 @@ export class AboutComponent implements OnInit {
       draggable: true,
       anchor: 'bottom',
     })
-      .setLngLat([105.85, 18.0])
+      .setLngLat([108.07, 16.5])
       .addTo(this.map);
     new mapboxgl.Marker({
       color: 'red',
@@ -52,17 +52,16 @@ export class AboutComponent implements OnInit {
     })
       .setLngLat([105.85, 21.0])
       .setHTML('<small>Ha Noi</small>')
-      .addTo(this.map)
-
+      .addTo(this.map);
 
     new mapboxgl.Popup({
       closeButton: true,
       closeOnClick: false,
       anchor: 'right',
     })
-      .setLngLat([105.85, 18.0])
+      .setLngLat([108.07, 16.5])
       .setHTML('<small>Da Nang</small>')
-      .addTo(this.map)
+      .addTo(this.map);
     new mapboxgl.Popup({
       closeButton: true,
       closeOnClick: false,
@@ -72,21 +71,22 @@ export class AboutComponent implements OnInit {
       .setHTML('<small>Ho Chi Minh</small>')
       .addTo(this.map);
 
-
     // map control
 
-    this.map.addControl(new mapboxgl.NavigationControl({
-      showCompass:true,
-      showZoom: true,
-    }))
+    this.map.addControl(
+      new mapboxgl.NavigationControl({
+        showCompass: true,
+        showZoom: true,
+      })
+    );
 
-    this.map.addControl(new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true
-      },
-      trackUserLocation: true
-    }))
-    
+    this.map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      })
+    );
   }
-
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplicationServices(builder.Configuration);
@@ -28,6 +29,9 @@ app.UseSwaggerDocumentation();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions {
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"Content")),RequestPath = "/Content"
+});
 
 app.UseCors("CorsPolicy");
 // app.UseSession();
@@ -35,7 +39,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapFallbackToController("Index","Fallback"); 
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

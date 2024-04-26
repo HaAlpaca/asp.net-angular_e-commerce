@@ -25,12 +25,12 @@ namespace Infrastructure.Services
 
         public string CreateToken(AppUser user, IList<string> roles)
         {
+            // them claim : quyền
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email,user.Email),
                 new Claim(ClaimTypes.OtherPhone,user.PhoneNumber),
                 new Claim(ClaimTypes.GivenName,user.DisplayName)
-
             };
             foreach (var role in roles)
             {

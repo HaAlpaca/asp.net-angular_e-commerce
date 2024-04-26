@@ -36,9 +36,9 @@ export class ShopComponent implements OnInit {
       .getProducts(this.shopParam)
       .subscribe({
         next: (res) => {
-          this.products = res.data
-          this.shopParam.pageNumber = res.pageIndex
-          this.shopParam.pageSize = res.pageSize
+          this.products = res.data // array
+          this.shopParam.pageNumber = res.pageIndex //
+          this.shopParam.pageSize = res.pageSize 
           this.totalCount = res.count
         },
         error: (err) => console.log(err),

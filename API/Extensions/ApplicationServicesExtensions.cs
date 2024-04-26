@@ -25,13 +25,8 @@ namespace API.Extensions
             services.AddDbContext<StoreContext>(
                 option =>
                 {
-                    option.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                    option.UseNpgsql(config.GetConnectionString("DefaultConnection"));
                 });
-            services.AddDbContext<AppIdentityDbContext>(
-                option =>
-            {
-                option.UseSqlite(config.GetConnectionString("IdentityConnection"));
-            });
             // Dependency injection
             services.AddSingleton<IConnectionMultiplexer>(
                 c =>

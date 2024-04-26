@@ -28,7 +28,6 @@ namespace API.Controllers
         private readonly IMapper _mapper;
 
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
-
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
@@ -60,7 +59,7 @@ namespace API.Controllers
         public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
             var user = await _userManager.FindUserByClaimPrincipleWithAddress(User);
-            return _mapper.Map<Address, AddressDto>(user.Address);
+            return _mapper.Map<Address,AddressDto>(user.Address);
         }
 
         [Authorize]
@@ -79,8 +78,8 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
-            IList<string> roles = await _userManager.GetRolesAsync(user);
             if (user == null) return Unauthorized(new ApiResponse(401));
+            IList<string> roles = await _userManager.GetRolesAsync(user);
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if (!result.Succeeded) return Unauthorized(new ApiResponse(401));
             return new UserDto
